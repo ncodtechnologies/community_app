@@ -1,0 +1,46 @@
+import React, {Component} from 'react';
+import { FlatList, ActivityIndicator, View, Image, TouchableOpacity  } from 'react-native';
+import { Container, Header, Content, Left, Icon, Title, Right, Text, Body, H2, Button } from 'native-base';
+import ViewShot from "react-native-view-shot";
+import Share from 'react-native-share';
+
+export default class ExampleWaitingCapture extends Component {
+  
+  constructor(props){
+    super(props);
+    this.state ={
+      uri:null
+      }
+  }
+
+  componentDidMount = () => {
+    this.refs.viewShot.capture().then(uri => {
+      console.log("do something with ", uri);
+      this.setState({uri: uri});
+    })
+  };
+  render() {
+    
+    let shareImageBase64 = {
+      title: "React Native",
+      message: "Hola mundo",
+      url: '../../Images/Assets/qr.png'
+    };
+    return (
+      <ViewShot ref="viewShot">
+        <Text>...Something to rasterize...</Text>
+        <Image source={{isStatic:true, uri:"file:///data/user/0/com.sulafaapp3/cache/ReactNative-snapshot-image-528629594.png"}} />
+        
+        <Text>...Something to rasterize.d..</Text>
+        
+        <TouchableOpacity onPress={()=>{
+          Share.open(shareImageBase64);
+        }}>
+          <View >
+            <Text>Simple Share</Text>
+          </View>
+        </TouchableOpacity>
+      </ViewShot>
+    );
+  }
+}
