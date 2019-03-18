@@ -1,3 +1,3 @@
-rootProject.name = 'Community_App'
+rootProject.name = 'Community_Redux'
 
 include ':app'
